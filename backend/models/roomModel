@@ -1,0 +1,41 @@
+const mongoose = require('mongoose')
+
+const roomSchema = mongoose.Schema(
+    {
+        
+        name: {
+            type: String,
+            required: true
+        },
+        price: {
+            type: Number,
+            required: true
+        },
+        image: {
+            data: Buffer,
+            contentType: String
+        },
+        reviews: [{
+            rating: {
+            type: Number,
+            required: true,
+            min: 1,
+            max: 5
+            },
+            comment: String
+        }],
+        description: String,
+        contact: {
+            phone: String,
+            email: String
+        }
+          
+
+        
+    },
+    {
+        timestamps: true
+    }
+)
+
+module.exports = mongoose.model("roomModel", roomSchema)

@@ -1,5 +1,7 @@
 const asyncHandler = require('express-async-handler')
 
+const Room = require('../models/roomModel')
+
 //@desc Create/Set Rooms
 //@Route  POST /api/rooms
 //@access Private
