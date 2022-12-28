@@ -1,39 +1,41 @@
+const asyncHandler = require('express-async-handler')
+
 //@desc Create/Set Rooms
 //@Route  POST /api/rooms
 //@access Private
 
-const setRoom = (req, res) => {
+const setRoom =asyncHandler(async (req, res) => {
 
     if(!req.body.text) {
         res.status(400)
         throw new Error('Please add text field i.e room info');
     }
     res.status(200).json({message: `new room info : ${req.body.text}`})
-}
+})
 
 //@desc Get Rooms
 //@Route  GET /api/rooms
 //@access Private
 
-const getRooms = (req, res) => {
+const getRooms = asyncHandler (async (req, res) => {
     res.status(200).json({message: 'get rooms'})
-}
+})
 
 //@desc Update Rooms
 //@Route  PUT /api/rooms/:id
 //@access Private
 
-const updateRoom = (req, res) => {
+const updateRoom =asyncHandler (async (req, res) => {
     res.status(200).json({message: `Update room info of room ${req.params.id}`})
-}
+})
 
 //@desc Delete Rooms
 //@Route  DELETE /api/rooms/:id
 //@access Private
 
-const deleteRoom = (req, res) => {
+const deleteRoom =asyncHandler (async (req, res) => {
     res.status(200).json({message: `Delete room ${req.params.id}`})
-}
+})
 
 
 
