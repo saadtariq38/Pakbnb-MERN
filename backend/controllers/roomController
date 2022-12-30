@@ -6,21 +6,43 @@ const Room = require('../models/roomModel')
 //@Route  POST /api/rooms
 //@access Private
 
-const setRoom =asyncHandler(async (req, res) => {
+const setRoom = asyncHandler(async (req, res) => {
 
-    if(!req.body.text) {
+    if(!req.body) {
         res.status(400)
-        throw new Error('Please add text field i.e room info');
+        throw new Error('Please add room info');
     }
-    res.status(200).json({message: `new room info : ${req.body.text}`})
+
+    const room = await Room.create({
+        name: req.body.name,
+        price: req.body.price,
+        image: req.body.image,
+        reviews: req.body.reviews,
+        description: req.body.description,
+        contact: req.body.contact
+    })
+
+    res.status(200).json(room)
+
+    
 })
 
-//@desc Get Rooms
+//@desc Get Rooms belonging to the user
+//@Route  GET /api/rooms/:userId
+//@access Private
+
+const getUserRooms = asyncHandler (async (req, res) => {
+    res.status(200).json({message: 'get user rooms'})
+})
+
+//@desc Get All Rooms
 //@Route  GET /api/rooms
 //@access Private
 
 const getRooms = asyncHandler (async (req, res) => {
-    res.status(200).json({message: 'get rooms'})
+    const rooms = await Room.find()
+
+    res.status(200).json(rooms)
 })
 
 //@desc Update Rooms
@@ -28,15 +50,34 @@ const getRooms = asyncHandler (async (req, res) => {
 //@access Private
 
 const updateRoom =asyncHandler (async (req, res) => {
-    res.status(200).json({message: `Update room info of room ${req.params.id}`})
+    const room = await Room.findById(req.params.id)
+
+    if(!room) {
+        res.status(400)
+        throw new Error("Room not found");
+    }
+
+    const updatedRoom = await Room.findByIdAndUpdate(req.params.id, req.body, {new : true,})
+
+    res.status(200).json(updatedRoom)
 })
+
 
 //@desc Delete Rooms
 //@Route  DELETE /api/rooms/:id
 //@access Private
 
 const deleteRoom =asyncHandler (async (req, res) => {
-    res.status(200).json({message: `Delete room ${req.params.id}`})
+    const room = await Room.findById(req.params.id)
+
+    if(!room) {
+        res.status(400)
+        throw new Error("Room not found");
+    }
+
+    await room.remove()
+
+    res.status(200).json({ id : req.params.id })
 })
 
 
@@ -45,5 +86,6 @@ module.exports = {
     getRooms,
     updateRoom,
     setRoom,
-    deleteRoom
+    deleteRoom,
+    getUserRooms
 }

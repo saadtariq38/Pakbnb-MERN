@@ -7,6 +7,7 @@ const { errorHandler } = require('./middleware/errorMiddleware')
 const  connectDB  = require("./config/db")
 
 
+
 connectDB();
 
 const app = express();
@@ -14,6 +15,7 @@ const app = express();
 //body parser for raw json and urlencoded to use req.body
 app.use(express.json())
 app.use(express.urlencoded({ extended : false }))
+
 
 app.use('/api/rooms', require('./routes/roomRoutes'))
 
