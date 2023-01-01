@@ -28,11 +28,13 @@ const setRoom = asyncHandler(async (req, res) => {
 })
 
 //@desc Get Rooms belonging to the user
-//@Route  GET /api/rooms/:userId
+//@Route  GET /api/rooms/userRoom
 //@access Private
 
 const getUserRooms = asyncHandler (async (req, res) => {
-    res.status(200).json({message: 'get user rooms'})
+    const rooms = await Room.find({ user: req.user.id })
+
+    res.status(200).json(rooms)
 })
 
 //@desc Get All Rooms
