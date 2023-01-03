@@ -19,7 +19,8 @@ const setRoom = asyncHandler(async (req, res) => {
         image: req.body.image,
         reviews: req.body.reviews,
         description: req.body.description,
-        contact: req.body.contact
+        contact: req.body.contact,
+        user: req.user.id
     })
 
     res.status(200).json(room)
@@ -59,6 +60,20 @@ const updateRoom =asyncHandler (async (req, res) => {
         throw new Error("Room not found");
     }
 
+    const user = await User.findById(req.user.id)
+
+    //check for user
+    if(!user) {
+        res.status(401)
+        throw new Error('User not found')
+    }
+
+    //make sure only logged in user matches the goal user
+    if(global.user.toString() !== user.id) {
+        res.status(401)
+        throw new Error('User not authorized')
+    }
+
     const updatedRoom = await Room.findByIdAndUpdate(req.params.id, req.body, {new : true,})
 
     res.status(200).json(updatedRoom)
@@ -69,12 +84,26 @@ const updateRoom =asyncHandler (async (req, res) => {
 //@Route  DELETE /api/rooms/:id
 //@access Private
 
-const deleteRoom =asyncHandler (async (req, res) => {
+const deleteRoom = asyncHandler (async (req, res) => {
     const room = await Room.findById(req.params.id)
 
     if(!room) {
         res.status(400)
         throw new Error("Room not found");
+    }
+
+    const user = await User.findById(req.user.id)
+
+    //check for user
+    if(!user) {
+        res.status(401)
+        throw new Error('User not found')
+    }
+
+    //make sure only logged in user matches the goal user
+    if(global.user.toString() !== user.id) {
+        res.status(401)
+        throw new Error('User not authorized')
     }
 
     await room.remove()

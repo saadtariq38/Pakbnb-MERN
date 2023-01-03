@@ -5,7 +5,7 @@ const roomSchema = mongoose.Schema(
         user: {
             type: mongoose.Schema.Types.ObjectId,
             required: true,
-            ref: 'User',        //this picks up the primary key from the users collection
+            ref: 'User',        
         },
         name: {
             type: String,
