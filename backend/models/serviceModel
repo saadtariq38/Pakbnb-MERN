@@ -1,0 +1,43 @@
+const { default: mongoose } = require('mongoose')
+const mongooose = require('mongoose')
+
+const serviceSchema = mongooose.Schema(
+    {
+        user: {
+            type: mongoose.Schema.Types.ObjectId,
+            required: true,
+            ref: 'User',
+        },
+        name: {
+            type: String,
+            required: true
+        },
+        price: {
+            type: Number,
+            required: true
+        },
+        image: {
+            data: Buffer,
+            contentType: String
+        },
+        description: {
+            type: String
+        },
+        instructorName: {
+            type: String
+        },
+        openSlots: {
+            type: Number
+        },
+        phone: {
+            type: String
+        }
+    },
+    {
+        timestamps: true
+    }
+)
+
+module.exports = mongooose.model("Service", serviceSchema)
+
+

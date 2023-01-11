@@ -1,6 +1,7 @@
 const asyncHandler = require('express-async-handler')
 
 const Room = require('../models/roomModel')
+const User = require('../models/userModel')
 
 //@desc Create/Set Rooms
 //@Route  POST /api/rooms
@@ -69,7 +70,7 @@ const updateRoom =asyncHandler (async (req, res) => {
     }
 
     //make sure only logged in user matches the goal user
-    if(global.user.toString() !== user.id) {
+    if(user.toString() !== user.id) {
         res.status(401)
         throw new Error('User not authorized')
     }
@@ -101,7 +102,7 @@ const deleteRoom = asyncHandler (async (req, res) => {
     }
 
     //make sure only logged in user matches the goal user
-    if(global.user.toString() !== user.id) {
+    if(user.toString() !== user.id) {
         res.status(401)
         throw new Error('User not authorized')
     }
