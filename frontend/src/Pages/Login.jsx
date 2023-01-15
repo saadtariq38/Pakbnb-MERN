@@ -25,9 +25,9 @@ function Login() {
 
   return (
     <>
-      <section style={{ paddingTop: '3%' }}>
+      <section style={{ paddingTop: '3%' } }>
         <h1 className='container h-100 d-flex align-items-center justify-content-center'>
-          <FaSignInAlt className='mx-2'/>  Login
+          <FaSignInAlt className='me-2'/>  Login
         </h1>
 
         <h5 className='container h-100 d-flex align-items-center justify-content-center text-muted mt-3'>Login to your account</h5>
