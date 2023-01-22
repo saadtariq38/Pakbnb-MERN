@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import { icons } from 'react-icons/lib'
 import { FaUser } from 'react-icons/fa'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
@@ -24,7 +23,7 @@ function Register() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
-  const { user, isLoading, isError, isSuccess, message } = useSelector((state) => state.auth)
+  const { user, isError, isLoading, isSuccess, message } = useSelector((state) => state.auth)
 
   useEffect(() => {
     if(isError) {
@@ -38,7 +37,7 @@ function Register() {
     dispatch(reset())
 
 
-  }, [user, isError, isLoading, isSuccess, message, navigate, dispatch])
+  }, [user, isError, isSuccess, message, navigate, dispatch])
 
   const onChange = (e) => {
     setFormData((prevState) => ({
@@ -52,13 +51,15 @@ function Register() {
     if(password !== password2) {
       toast.error('Passwords do not match')
     } else {
-      const userData = {
-        name,
-        email,
-        password,
-      }
+        const userData = {
+          name,
+          email,
+          phone,
+          password,
+        }
+        dispatch(register(userData))
 
-      dispatch(register(userData))
+      
 
     }
   }
@@ -106,7 +107,7 @@ function Register() {
           </div>
 
           <div className="d-flex justify-content-center mt-5">
-            <button type="button" className="btn btn-block btn-dark w-100 py-2">Register</button>
+            <button type="submit" className="btn btn-block btn-dark w-100 py-2" onClick={onSubmit}>Register</button>
           </div>
 
         </form>

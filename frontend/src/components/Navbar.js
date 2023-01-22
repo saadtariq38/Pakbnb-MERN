@@ -1,7 +1,22 @@
 import { FaSignInAlt, FaSignOutAlt, FaUser} from 'react-icons/fa'
 import { Link } from 'react-router-dom'
-
+import { useSelector, useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { useEffect } from 'react'
+import { logout, reset } from "../features/auth/authSlice"
 function Navbar() {
+
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
+
+    const {user} = useSelector((state) => state.auth)
+
+
+    const onLogout = () => {
+        dispatch(logout())
+        dispatch(reset())
+        navigate('/')
+    }
     return (
         <nav class="navbar navbar-expand-lg bg-body-tertiary container-fluid ">
             <div class="container">
@@ -25,16 +40,28 @@ function Navbar() {
                 <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
 
                     <ul class="navbar-nav ">
-                        <li class="nav-item">
-                                <Link class="nav-link" to="/login">
-                                    <FaSignInAlt /> Login
-                                </Link>
-                            </li>
+                        {user ? (
                             <li class="nav-item">
-                                <Link class="nav-link" to="/register">
+                            <button class="btn" onClick={onLogout}>
+                                <FaSignOutAlt /> Logout
+                            </button>
+                        </li>
+                        ) : (
+                            <>
+                                <li class="nav-item">
+                                    <Link class="nav-link" to="/login">
+                                        <FaSignInAlt /> Login
+                                    </Link>
+                                </li>
+                                <li class="nav-item">
+                                    <Link class="nav-link" to="/register">
                                     <FaUser /> register
-                                </Link>
-                            </li>
+                                    </Link>
+                                </li>
+                            </>
+                        )}
+                        
+
                     </ul>
                 </div>
             </div>

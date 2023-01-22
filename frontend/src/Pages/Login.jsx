@@ -1,6 +1,10 @@
 import { useState, useEffect } from 'react'
-import { icons } from 'react-icons/lib'
 import { FaSignInAlt } from 'react-icons/fa'
+import { useSelector, useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { login, reset } from '../features/auth/authSlice'
+import { toast } from 'react-toastify'
+import Spinner from '../components/Spinner'
 
 function Login() {
 
@@ -11,6 +15,23 @@ function Login() {
 
   const {email, password} = formData
 
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+
+  const {isError, isSuccess, isLoading,  message, user} = useSelector((state) => state.auth)
+
+  useEffect(() => {
+    if(isError) {
+      toast.error(message)
+    }
+
+    if(isSuccess || user) {
+      navigate('/')
+    }
+
+    dispatch(reset())
+  }, [user, isError, isSuccess, message, navigate, dispatch])
+
   const onChange = (e) => {
     setFormData((prevState) => ({
       ...prevState,
@@ -20,6 +41,17 @@ function Login() {
 
   const onSubmit = (e) => {
     e.preventDefault()
+
+    const userData = {
+      email,
+      password,
+    }
+
+    dispatch(login(userData))
+  }
+
+  if(isLoading) {
+    <Spinner />
   }
 
 
@@ -46,7 +78,7 @@ function Login() {
             <label for="password">Password</label>
           </div>
           <div className="d-flex justify-content-center mt-5">
-            <button type="button" className="btn btn-block btn-dark w-100 py-2">Login</button>
+            <button type="submit" className="btn btn-block btn-dark w-100 py-2">Login</button>
           </div>
 
         </form>
