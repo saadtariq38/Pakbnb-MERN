@@ -62,16 +62,16 @@ const updateService =asyncHandler (async (req, res) => {
         throw new Error("Service not found");
     }
 
-    const user = await User.findById(req.user.id)
+    
 
     //check for user
-    if(!user) {
+    if(!req.user) {
         res.status(401)
         throw new Error('User not found')
     }
 
     //make sure only logged in user matches the goal user
-    if(user.toString() !== user.id) {
+    if(service.user.toString() !== req.user.id) {
         res.status(401)
         throw new Error('User not authorized')
     }
@@ -94,16 +94,15 @@ const deleteService = asyncHandler (async (req, res) => {
         throw new Error("Room not found");
     }
 
-    const user = await User.findById(req.user.id)
 
     //check for user
-    if(!user) {
+    if(!req.user) {
         res.status(401)
         throw new Error('User not found')
     }
 
     //make sure only logged in user matches the goal user
-    if(user.toString() !== user.id) {
+    if(service.user.toString() !== req.user.id) {
         res.status(401)
         throw new Error('User not authorized')
     }

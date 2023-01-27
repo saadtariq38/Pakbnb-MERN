@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { Next } from 'react-bootstrap/esm/PageItem'
 
 const API_URL = '/api/users/'
 
@@ -14,6 +15,7 @@ const register = async (userData) => {
 }
 
 const login = async (userData) => {
+    try{
     const response = await axios.post(API_URL + 'login', userData)
 
     if(response.data) {
@@ -21,6 +23,9 @@ const login = async (userData) => {
     }
 
     return response.data
+}catch {
+    console.log("Could not login")
+}
     
 }
 

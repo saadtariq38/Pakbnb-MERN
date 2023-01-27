@@ -3,6 +3,7 @@ const colours = require('colors')
 const dotenv = require('dotenv').config();
 const port = process.env.PORT || 5000
 
+
 const { errorHandler } = require('./middleware/errorMiddleware')
 const  connectDB  = require("./config/db")
 
@@ -11,6 +12,7 @@ const  connectDB  = require("./config/db")
 connectDB();
 
 const app = express();
+
 
 //body parser for raw json and urlencoded to use req.body
 app.use(express.json())
