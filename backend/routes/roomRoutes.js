@@ -5,7 +5,7 @@ const { getRooms, updateRoom, setRoom, deleteRoom, getUserRooms  } = require('..
 const { protect } = require('../middleware/authMiddleware')
 
 
-router.route('/').get(protect, getRooms).post(protect, setRoom)
+router.route('/').get(getRooms).post(protect, setRoom)
 router.route('/:id').put(protect, updateRoom).delete(protect, deleteRoom)
 router.route('/userRoom').get(protect, getUserRooms)
 

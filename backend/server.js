@@ -2,6 +2,7 @@ const express = require('express') ;
 const colours = require('colors')
 const dotenv = require('dotenv').config();
 const port = process.env.PORT || 5000
+const cors = require('cors')
 
 
 const { errorHandler } = require('./middleware/errorMiddleware')
@@ -12,6 +13,19 @@ const  connectDB  = require("./config/db")
 connectDB();
 
 const app = express();
+
+app.use(cors())
+
+app.use((req, res, next) => {
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader(
+        "Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept, Authorization "
+    );
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE");
+
+    next();
+});
 
 
 //body parser for raw json and urlencoded to use req.body
