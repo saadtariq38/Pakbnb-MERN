@@ -6,14 +6,15 @@ const API_URL = 'http://localhost:5000/api/rooms/'
 
 //get all the rooms from the database
 const getAllRooms = async () => {
-    try{
+
         const response = await axios.get(API_URL)
-       // console.log(response)
+        if(!response) {
+            throw new Error("Could not get reponse")
+        }
+       
         return response.data
 
-    }catch (error) {
-        console.log("Could not get all rooms data")
-    }
+  
 }
 
 

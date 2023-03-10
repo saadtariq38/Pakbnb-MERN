@@ -45,7 +45,7 @@ const getUserRooms = asyncHandler (async (req, res) => {
 
 const getRooms = asyncHandler (async (req, res) => {
     const rooms = await Room.find()
-    console.log("saad")
+    console.log("getRooms controller called")
     res.status(200).json(rooms)
 })
 

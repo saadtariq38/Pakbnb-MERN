@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import roomService from './roomService'
 
 const initialState = {
-    rooms: [],
+    rooms: {},
     isError: false,
     isSuccess: false,
     isLoading: false,
@@ -10,9 +10,10 @@ const initialState = {
 }
 
 
-export const getAllRooms = createAsyncThunk("room/getRooms", async (_, thunkAPI) => {
+export const AllRooms = createAsyncThunk("room/getRooms", async (_, thunkAPI) => {
     try {
         const rooms =  await roomService.getAllRooms()
+        console.log("All rooms called")
       //  const rooms = Array.from(resolvedValue)
         return rooms
     } catch (error) {
@@ -38,17 +39,18 @@ export const roomSlice = createSlice({
     //anything in extra reducers will be async thunk funcs
     extraReducers: (builder) => {
         builder
-        .addCase(getAllRooms.pending, (state) => {
+        .addCase(AllRooms.pending, (state) => {
             state.isLoading = true
         })
-        .addCase(getAllRooms.fulfilled, (state, action) => {
+        .addCase(AllRooms.fulfilled, (state, action) => {
             state.isLoading = false
             state.isSuccess = true
-           // state.rooms = action.payload
-           console.log(action.payload)
-            state.rooms.push(action.payload)
+            console.log("payload here")
+            state.rooms = action.payload
+            
+            //state.rooms.push(action.payload)
         })
-        .addCase(getAllRooms.rejected, (state, action) => {
+        .addCase(AllRooms.rejected, (state, action) => {
             state.isLoading = false
             state.isError = true
             state.message = action.payload
