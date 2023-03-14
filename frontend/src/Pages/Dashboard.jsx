@@ -67,10 +67,11 @@ function Dashboard() {
     // </div>
 
     <div className="container-fluid">
+      <h1 style={{ marginTop: '40px', marginLeft: '50px' }}>Book verified rooms!</h1>
       {Object.keys(rooms).map(roomId => (
         <div key={roomId} className="row my-4 custom-row">
           <div className="col-md-8 d-flex align-items-center justify-content-center">
-            <img className="img-fluid" src={`./card-img${roomId}.png`} alt={rooms[roomId].name} style={{ height: "75%", maxHeight: "none" }} />
+            <img className="img-fluid" src={`./card-img3.png`} alt={rooms[roomId].name} style={{ height: "75%", maxHeight: "none" }} />
           </div>
           <div className="col-md-4 d-flex align-items-center justify-content-center">
             <Card

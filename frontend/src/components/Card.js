@@ -33,14 +33,13 @@ const Card = ({ name, price, reviews, description, contact }) => {
 
     //           </div>
     //       </div>
-      //   </div> 
+      //   </div> style={{ marginRight: '10px' }}
 
-      <div className='card-container'>
-          <div className='card'>
+      <div className='card-container' style={{ height: '300px', width: '400px', marginRight: '100px' }}>
+          <div className='card mr-4' style={{ height: '100%', width: '100%' }}>
               <div className='card--details'>
                   <div className='card--stats'>
-
-                      <p className='card-text'>{description}</p>
+                      <h3 className='card-text'>{description}</h3>
                   </div>
                   <p className='price'>
                       <span className='bold-text'>Rs {price}</span>/month
